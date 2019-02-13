@@ -1,0 +1,88 @@
+.App {
+  text-align: center;
+}
+
+.Pencil {
+  height: 2vmin;
+}
+
+.App-header {
+  height: 10vh;
+  color: black;
+  font-size: 30pt;
+}
+
+.App-body {
+  background-color: #ffd991;
+  min-height: 90vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.Create-new {
+  height: 600px;
+  width: 30vw;
+  margin: 10px;
+  background-color:white;
+  float:left;
+  color: black;
+}
+
+.Create-new label {
+  font-size:15px;
+}
+
+.Create-new form{
+  text-align: left;
+}
+
+.Create-new .Descrip{
+  height: 100px;
+}
+
+.Task-full {
+  width: 33vw;
+  height: 90vh;
+  float:left;
+}
+
+.Task-type {
+  float:left;
+}
+
+.Task-column {
+  max-height:500px;
+  width:100px;
+  display:table;
+  overflow:scroll;
+}
+
+.Task-listing {
+  height:100px;
+  cursor: pointer;
+  width: 250px;
+  display:block;
+  text-align: left;
+  color:black;
+  border:1px solid #000000;
+  font-size: 10pt;
+  padding: 10px;
+  margin:15px 5px 15px 5px;
+  background-color: #ffffff;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
