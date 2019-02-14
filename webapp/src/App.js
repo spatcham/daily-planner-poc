@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Task from './components/Task.js';
+import Detail from './components/Detail.js';
 import CreateTaskForm from './components/CreateTaskForm.js';
 import axios from 'axios';
 
@@ -7,33 +8,40 @@ import './App.css';
 
 class App extends Component {
 
-  state = {
-    tasks: [],
-    loading: false,
-    active: {
-      name: '',
-      description: '',
-      dueDate: '',
-      completed: '',
-      _id: {}
+  constructor() {
+    super();
+    this.state = {
+      tasks: [],
+      active: {
+        name: '',
+        description: '',
+        dueDate: '',
+        completed: '',
+        _id: {}
+      }
     }
-  };
+    this.myCallback = this.myCallback.bind(this);
+  }
 
   componentDidMount() {
     axios.get('http://localhost:8080/task/list')
       .then(resp => {
         const tasks = resp.data;
-        console.log("Tasks",tasks);
         this.setState({tasks:tasks});
       })
   }
 
-  handleClick(taskName, completed, description, dueDate, _id) {
-    console.log("taskName", taskName);
-    this.setState()
+  myCallback = (dataFromChild) => {
+    console.log("Data from Child", dataFromChild);
+    this.setState({active : dataFromChild});
+    console.log("Active", this.state.active);
+    this.render();
+
   }
 
   render() {
+
+    var x = 0;
 
     return (
       <div className="App">
@@ -52,16 +60,23 @@ class App extends Component {
             {this.state.tasks.map(
               task => 
                   <Task 
+                    key={x++}
                     _id={task._id} 
                     name={task.taskName} 
                     completed={task.completed} 
                     description={task.description}
                     dueDate = {task.dueDate}
-                    onClick={this.handleClick(task.taskName, task.completed, task.description, task.dueDate, task._id)}
+                    callbackFromParent={this.myCallback}
                   />)}
           </div>
           <div className="Task-full">
-              <span>Detail</span>
+              <Detail 
+                _id = {this.state.active._id}
+                name= {this.state.active.name}
+                completed = {this.state.active.completed}
+                description={this.state.active.description}
+                dueDate = {this.state.active.dueDate}
+              />
           </div>
         </div>
         

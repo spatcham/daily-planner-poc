@@ -51,6 +51,7 @@
   width: 33vw;
   height: 90vh;
   float:left;
+  text-align:left;
 }
 
 .Task-type {
@@ -76,6 +77,14 @@
   padding: 10px;
   margin:15px 5px 15px 5px;
   background-color: #ffffff;
+}
+
+.Detail-body {
+  background-color: white;
+}
+
+.Detail-body span{
+  font-size: 10pt;
 }
 
 @keyframes App-logo-spin {
