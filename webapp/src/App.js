@@ -20,7 +20,6 @@ class App extends Component {
         _id: {}
       }
     }
-    // this.myCallback = this.myCallback.bind(this);
   }
 
   componentDidMount() {
@@ -32,7 +31,6 @@ class App extends Component {
       .then(resp => {
         const tasks = resp.data;
         this.setState({tasks});
-        // return tasks;
       })
   }
 
