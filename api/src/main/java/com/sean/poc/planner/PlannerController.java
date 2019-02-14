@@ -12,7 +12,11 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.time.temporal.ChronoUnit;
 
 @CrossOrigin
 @RestController
@@ -28,11 +32,36 @@ public class PlannerController {
 
     @RequestMapping(value = "/task/list", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public String getTasks() {
+    public String getTasks(@RequestParam("filter") String filter) {
         List<Task> tasks = mongoOperations.findAll(Task.class, TASK_COLLECTION);
+        List<Task> sortedTasks = new ArrayList<>();
+        Date date = new Date();
+        for(Task task : tasks){
+            if("overdue".equals(filter)){
+                if(date.after(task.getDueDate()) && !task.isCompleted()){
+                    sortedTasks.add(task);
+                }
+            }else if("completed".equals(filter)){
+                if(task.isCompleted()){
+                    sortedTasks.add(task);
+                }
+            }else if("due-soon".equals(filter) && !task.isCompleted()){
+                if(date.before(task.getDueDate())){
+                    long daysDiff = (date.getTime() - task.getDueDate().getTime()) / 86400000;
+                    if(daysDiff <=2){
+                        sortedTasks.add(task);
+                    }
+                }
+
+            }else{
+                sortedTasks.add(task);
+            }
+        }
+
+
         String response = "{}";
         try {
-             response = mapper.writeValueAsString(tasks);
+             response = mapper.writeValueAsString(sortedTasks);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -43,6 +72,9 @@ public class PlannerController {
     @RequestMapping(value = "/task/add", method = RequestMethod.PUT, produces = "application/json")
     @ResponseBody
     public String addTask(@RequestBody Task task) {
+        System.out.println(task.getDueDate().toString());
+        System.out.println(task.getDueDate().getTime());
+
         mongoOperations.insert(task, TASK_COLLECTION);
         return "{ \"response\": \"Task Added!\" }";
     }

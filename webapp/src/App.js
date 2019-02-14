@@ -24,7 +24,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8080/task/list')
+    this.listTasks("");
+  }
+
+  listTasks(filter) {
+    axios.get('http://localhost:8080/task/list?filter=' + filter)
       .then(resp => {
         const tasks = resp.data;
         this.setState({tasks:tasks});
@@ -32,11 +36,7 @@ class App extends Component {
   }
 
   myCallback = (dataFromChild) => {
-    console.log("Data from Child", dataFromChild);
     this.setState({active : dataFromChild});
-    console.log("Active", this.state.active);
-    this.render();
-
   }
 
   render() {
@@ -57,6 +57,12 @@ class App extends Component {
             <div>
               <span>Tasks</span>
             </div>  
+            <div>
+              <button onClick={() => this.listTasks('')}>All</button>
+              <button onClick={() => this.listTasks('completed')}>Completed</button>
+              <button onClick={() => this.listTasks('overdue')}>Overdue</button>
+              <button onClick={() => this.listTasks('due-soon')}>Due Soon</button>
+            </div>
             {this.state.tasks.map(
               task => 
                   <Task 

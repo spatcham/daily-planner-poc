@@ -18,14 +18,16 @@ class Detail extends React.Component {
         //Not using HTTP delete here just to get Axios working more easily with Spring 
         axios.post("http://localhost:8080/task/remove", reqObj)
         .then(res => {
-
+            alert("Task removed");
+            window.location.reload();
         });
     }
 
     completeTask(reqObj) {
         axios.post("http://localhost:8080/task/complete", reqObj)
         .then(res => {
-
+            alert("Task completed");
+            window.location.reload();
         });
     }
     
