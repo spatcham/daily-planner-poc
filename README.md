@@ -1,15 +1,16 @@
-# daily-planner-webapp
+# Daily-planner
 Full-stack application for single-user task management solution
 
 
 ## Prerequisites
-This documentation assumes the user:
-- Has node.js/npm installed
-- Has maven installed
-- Has Java configured for
+This documentation assumes the user uses Windows and has the following programs installed and tied to their PATH:
+- Node.js
+- npm
+- Maven
+- MongoDB
+- Java 8
 
-And all corresponding programs in system path
 
 ### Known defects
 - Time zones are not synced between UI and Back-end, causing a 5 hour discrepancy
-- 
+- API day difference calculation can be improved

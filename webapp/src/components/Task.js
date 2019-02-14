@@ -13,6 +13,7 @@ class Task extends React.Component {
         };
     }
 
+    //TODO: the task due date comes in at an earlier time zone than when it was received by the API microservice
     calculateDueDaysRemaining(){
         var currentDay = new Date();
         currentDay.setHours(0);
@@ -25,6 +26,7 @@ class Task extends React.Component {
 
     }
 
+    //Sends task data back to App.js to be set in state.active
     handleClick = () => {
         var task = this.state;
         this.props.callbackFromParent(task);
@@ -35,6 +37,7 @@ class Task extends React.Component {
         var daysRemaining = this.calculateDueDaysRemaining();
         let taskTemplate;
 
+        //Set styling on each task block depending on the days remaining
         if(daysRemaining >= 2 && !this.state.completed){
             taskTemplate = 
                 <div className="Task-listing" >

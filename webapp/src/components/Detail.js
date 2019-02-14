@@ -33,6 +33,7 @@ class Detail extends React.Component {
     
     render() {
 
+        //Convert true and false to Yes and No
         var completedMessage = "";
         if(this.props.completed){
             completedMessage = "Yes";
@@ -40,6 +41,7 @@ class Detail extends React.Component {
             completedMessage = "No";
         }
 
+        //Set date message here so an error isn't displayed upon first landing
         var date;
         var dateMessage;
         if(this.props.dueDate !== ''){

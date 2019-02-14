@@ -15,5 +15,6 @@ java -jar target/planner-0.1.0.Beta.jar &
 
 #Start webapp
 cd ../webapp
+npm install
 npm start &
 

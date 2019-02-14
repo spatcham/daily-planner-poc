@@ -8,6 +8,7 @@ import './App.css';
 
 class App extends Component {
 
+  //Use "active" to track the props of the most recently clicked task
   constructor() {
     super();
     this.state = {
@@ -26,6 +27,7 @@ class App extends Component {
     this.listTasks("");
   }
 
+  //List call externalized for filtering based on button presses
   listTasks(filter) {
     axios.get('http://localhost:8080/task/list?filter=' + filter)
       .then(resp => {

@@ -25,6 +25,7 @@ class CreateTaskForm extends React.Component {
       }
     
       handleSubmit(event) {
+        //Ensure form has been filled out
         if(this.state.name.trim()==='' || this.state.description.trim()==='' || this.state.dueDate.trim()===''){
           alert('Please populate all items of the form');
         }else{

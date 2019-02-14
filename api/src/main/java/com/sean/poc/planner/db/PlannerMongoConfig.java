@@ -11,10 +11,17 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
-
+/**
+ * Config bean for anything related to the API's connection to MongoDB
+ */
 @Configuration
 public class PlannerMongoConfig {
 
+    /**
+     * Factory bean for handling client connections.
+     * @return factory
+     * @throws Exception
+     */
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
         // Set credentials
@@ -34,7 +41,7 @@ public class PlannerMongoConfig {
     }
 
     /**
-     * Template ready to use to operate on the database
+     * Template ready to run operations against the DB
      *
      * @return Mongo Template ready to use
      */
