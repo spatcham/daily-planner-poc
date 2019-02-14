@@ -20,7 +20,7 @@ class App extends Component {
         _id: {}
       }
     }
-    this.myCallback = this.myCallback.bind(this);
+    // this.myCallback = this.myCallback.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +31,8 @@ class App extends Component {
     axios.get('http://localhost:8080/task/list?filter=' + filter)
       .then(resp => {
         const tasks = resp.data;
-        this.setState({tasks:tasks});
+        this.setState({tasks});
+        // return tasks;
       })
   }
 
@@ -41,7 +42,19 @@ class App extends Component {
 
   render() {
 
-    var x = 0;
+    let taskList = undefined;
+
+    taskList = this.state.tasks.map(task => 
+          <Task 
+            key={task._id.time}
+            _id={task._id} 
+            name={task.taskName} 
+            completed={task.completed} 
+            description={task.description}
+            dueDate = {task.dueDate}
+            callbackFromParent={this.myCallback}
+          />);
+
 
     return (
       <div className="App">
@@ -63,17 +76,7 @@ class App extends Component {
               <button onClick={() => this.listTasks('overdue')}>Overdue</button>
               <button onClick={() => this.listTasks('due-soon')}>Due Soon</button>
             </div>
-            {this.state.tasks.map(
-              task => 
-                  <Task 
-                    key={x++}
-                    _id={task._id} 
-                    name={task.taskName} 
-                    completed={task.completed} 
-                    description={task.description}
-                    dueDate = {task.dueDate}
-                    callbackFromParent={this.myCallback}
-                  />)}
+            {taskList}
           </div>
           <div className="Task-full">
               <Detail 
