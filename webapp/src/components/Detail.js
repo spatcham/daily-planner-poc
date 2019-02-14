@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Detail extends React.Component {
 
@@ -12,16 +13,38 @@ class Detail extends React.Component {
             completed: props.completed
         };
     }
+
+    deleteTask(reqObj) {
+        //Not using HTTP delete here just to get Axios working more easily with Spring 
+        axios.post("http://localhost:8080/task/remove", reqObj)
+        .then(res => {
+
+        });
+    }
+
+    completeTask(reqObj) {
+        axios.post("http://localhost:8080/task/complete", reqObj)
+        .then(res => {
+
+        });
+    }
     
     render() {
 
-         var date = new Date(this.props.dueDate);
-
-        var message = "";
+        var completedMessage = "";
         if(this.props.completed){
-            message = "Yes";
-        }else if(!this.props.completed){
-            message = "No";
+            completedMessage = "Yes";
+        }else if(!this.props.completed && this.props.completed !== ""){
+            completedMessage = "No";
+        }
+
+        var date;
+        var dateMessage;
+        if(this.props.dueDate !== ''){
+            date = new Date(this.props.dueDate);
+            dateMessage = date.toDateString();
+        }else{
+            dateMessage = "";
         }
 
         return (
@@ -34,14 +57,14 @@ class Detail extends React.Component {
                 <span>{this.props.description}</span>
                 <br />
                 <span>Due Date:</span>
-                <span>{date.getMonth()}/{date.getDay()}/{date.getFullYear()}</span>
+                <span>{dateMessage}</span>
                 <br />
                 <span>Completed:</span>
-                <span>{message}</span>
+                <span>{completedMessage}</span>
                 <br />
-                <button>Delete</button>
+                <button onClick={() => this.deleteTask(this.props)}>Delete</button>
                 <br />
-                <button>Complete</button>
+                <button onClick={() => this.completeTask(this.props)}>Complete</button>
             </div>
         );
     }

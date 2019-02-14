@@ -57,7 +57,7 @@ public class PlannerController {
         return "{ \"response\": \"Task Completed!\" }";
     }
 
-    @RequestMapping(value = "/task/remove", method = RequestMethod.DELETE, produces = "application/json")
+    @RequestMapping(value = "/task/remove", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String removeTask(@RequestBody Task task) {
         Query query = Query.query(Criteria.where("_id").is(task.get_id()));
